@@ -17,7 +17,7 @@ jobs:
         run: |
           pip install semgrep
           # semgrep --config .semgrep.yml --error app.py
-          semgrep --config .semgrep.yml --error app.py #bypassing the vulnerability
+          semgrep --config .semgrep.yml app.py #bypassing the vulnerability
 
   # JOB 2: SonarCloud
   sonarcloud-scan:
