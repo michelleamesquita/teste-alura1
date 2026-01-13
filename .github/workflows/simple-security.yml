@@ -1,0 +1,36 @@
+name: Simple Security Scan
+
+# Executa quando houver push ou pull request
+on: [push, pull_request]
+
+jobs:
+  # JOB 1: Semgrep
+  semgrep-scan:
+    name: Semgrep
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Baixar código
+        uses: actions/checkout@v4
+      
+      - name: 🔍 Executar Semgrep
+        run: |
+          pip install semgrep
+          semgrep --config .semgrep.yml --error app.py
+
+  # JOB 2: SonarCloud
+  sonarcloud-scan:
+    name: SonarCloud
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Baixar código
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: ☁️ Executar SonarCloud
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
