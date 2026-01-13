@@ -1,0 +1,32 @@
+rules:
+  - id: flask-xss-render-template-string-fstring
+    patterns:
+      - pattern: render_template_string(f"...")
+    message: "Vulnerabilidade XSS: render_template_string com f-string pode executar código não sanitizado injetado pelo usuário. Use templates Jinja2 com autoescaping ou escape() explicitamente."
+    languages:
+      - python
+    severity: ERROR
+    metadata:
+      category: security
+      cwe: "CWE-79: Cross-site Scripting (XSS)"
+      owasp: "A03:2021 - Injection"
+      confidence: HIGH
+      
+  - id: flask-xss-user-input-template
+    patterns:
+      - pattern-either:
+          - pattern: |
+              $VAR = request.args.get(...)
+              ...
+              render_template_string($HTML)
+          - pattern: |
+              $VAR = request.form.get(...)
+              ...
+              render_template_string($HTML)
+    message: "Possível vulnerabilidade XSS: dados do usuário usados em render_template_string sem sanitização"
+    languages:
+      - python
+    severity: WARNING
+    metadata:
+      category: security
+      cwe: "CWE-79: Cross-site Scripting (XSS)"
