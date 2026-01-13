@@ -95,20 +95,6 @@ app.py:22 - Vulnerabilidade XSS detectada
 - 2 jobs: Semgrep + SonarCloud
 - Fácil de entender
 
-### `security-scan.yml` (Avançado)
-- Mais completo
-- Upload de artifacts
-- Quality Gate check
-- Error handling
-
-## 🔧 Opcional: Semgrep Cloud
-
-Para recursos avançados (opcional):
-
-1. Acesse https://semgrep.dev
-2. Crie conta
-3. Pegue o token em **Settings**
-4. Adicione secret: `SEMGREP_APP_TOKEN`
 
 **Mas funciona sem token também!** 🎉
 
